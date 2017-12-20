@@ -1,0 +1,26 @@
+* {
+    font-size: 20px;
+}
+
+#stream canvas {
+    width: 100%;
+}
+
+#buttons {
+    margin: 10px;
+}
+
+button {
+    font-size: 20px !important;
+}
+
+#currentKey {
+    float: right;
+    padding-top: 13px;
+    font-size: 50px;
+}
+
+#currentKey span {
+    padding-top: 13px;
+    font-size: 50px;
+}

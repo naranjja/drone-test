@@ -5,12 +5,18 @@
     <script src="socket.io.js"></script>
     <script src="jquery.min.js"></script>
     <script src='index.js'></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="semantic-ui/semantic.min.css">
 </head>
 <body>
-<button id="bTakeoff">takeoff</button>
-<button id="bLand">land</button>
-<button id="bStop">stop</button>
-<span id="currentKey"></span>
+    <div id="buttons">
+            <button id="bTakeoff" class="ui button">takeoff</button>
+            <button id="bLand" class="ui button">land</button>
+            <button id="bCW" class="ui button">cw</button>
+            <button id="bCCW" class="ui button">ccw</button>
+            <button id="bStop" class="ui button">stop</button>        
+            <span id="currentKey"></span>
+    </div>
 <div id="stream"></div>
 </body>
 </html>

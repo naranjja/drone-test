@@ -5,8 +5,17 @@ const startArDRoneStream = () => {
 $(() => {
 
     const currentKey = $('#currentKey')
+
+    const flashKey = key => {
+        currentKey.hide()
+        currentKey.html(key)
+        currentKey.show(100)
+    }
+
     const bTakeoff = $('#bTakeoff')
     const bLand = $('#bLand')
+    const bCW = $('#bCW')
+    const bCCW = $('#bCCW')
     const bStop = $('#bStop')
 
     const socket = io()
@@ -16,9 +25,26 @@ $(() => {
     socket.on('connect', () => console.log('connection successful!'))
 
     try {
-        bTakeoff.on('click', () => socket.emit('takeoff'))
-        bLand.on('click', () => socket.emit('land'))
-        bStop.on('click', () => socket.emit('stop'))
+        bTakeoff.on('click', () => {
+            socket.emit('takeoff')
+            flashKey(`<span style="color:green">takeoff</span>`)
+        })
+        bLand.on('click', () => {
+            socket.emit('land')
+            flashKey(`<span style="color:green">land</span>`)
+        })
+        bCW.on('click', () => {
+            socket.emit('cw')
+            flashKey(`<span style="color:green">cw</span>`)
+        })
+        bCCW.on('click', () => {
+            socket.emit('ccw')
+            flashKey(`<span style="color:green">ccw</span>`)
+        })
+        bStop.on('click', () => {
+            socket.emit('stop')
+            flashKey(`<span style="color:green">stop</span>`)
+        })
     
         const keymap = {
             'ArrowUp': 'up',
@@ -32,16 +58,18 @@ $(() => {
             'p': 'stop',
             'l': 'land',
             ' ': 'land',
-            't': 'takeoff'
+            't': 'takeoff',
+            'Enter': 'stop',
+            'Shift': 'stop'
         }
     
         $(document).keydown(e => {
             if (e.key in keymap) {
                 e.preventDefault()
                 socket.emit(keymap[e.key])
-                currentKey.hide()
-                currentKey.html(keymap[e.key])
-                currentKey.show(100)
+                flashKey(`<span style="color:blue">${keymap[e.key]}</span>`)
+            } else {
+                flashKey(`<span style="color:gray">${e.key.toString().toUpperCase()}</span>`)
             }
         })
     } catch (e) {
