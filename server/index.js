@@ -5,55 +5,61 @@ const server = require('http').createServer(app)
 const drone = require('ar-drone').createClient()
 const stream = require('dronestream')
 
+const speed = 0.1
+
 try {
     app.use(express.static(__dirname + '/public'))
     stream.listen(3001)
     const io = require('socket.io')(server)
-    const speed = 0.1
 
     io.on('connection', socket => {
         socket.on('stop', data => {
+            console.log('stop')
             drone.stop()
         })
         socket.on('takeoff', data => {
+            console.log('stop')
             drone.stop()
+            console.log('takeoff')
             drone.takeoff()
         })
         socket.on('land', data => {
+            console.log('stop')
             drone.stop()
+            console.log('land')
             drone.land()
         })
         socket.on('up', data => {
+            console.log('up')
             drone.up(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('down', data => {
+            console.log('down')
             drone.down(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('left', data => {
+            console.log('left')
             drone.left(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('right', data => {
+            console.log('right')
             drone.right(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('front', data => {
+            console.log('front')
             drone.front(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('back', data => {
+            console.log('back')
             drone.back(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('cw', data => {
+            console.log('cw')
             drone.clockwise(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         socket.on('ccw', data => {
+            console.log('ccw')
             drone.counterClockwise(speed)
-            drone.after(1000, function(){ drone.stop() })
         })
         
     })
